@@ -1,3 +1,3 @@
-module example.com/lab1_test
+module example.com/lab1
 
 go 1.20
