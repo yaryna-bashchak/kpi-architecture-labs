@@ -27,6 +27,8 @@ type Visualizer struct {
 
 	sz  size.Event
 	pos image.Rectangle
+	
+	centerCoords image.Point
 }
 
 func (pw *Visualizer) Main() {
@@ -34,6 +36,7 @@ func (pw *Visualizer) Main() {
 	pw.done = make(chan struct{})
 	pw.pos.Max.X = 200
 	pw.pos.Max.Y = 200
+	pw.centerCoords = image.Point{400, 400}	// початкові координати центру фігури
 	driver.Main(pw.run)
 }
 
@@ -117,7 +120,11 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 
 	case mouse.Event:
 		if t == nil {
-			// TODO: Реалізувати реакцію на натискання кнопки миші.
+			// Зміна координат центру фігури при натисканні лівої кнопки
+			if e.Button == mouse.ButtonLeft && e.Direction == mouse.DirPress {
+				pw.centerCoords = image.Point{int(e.X), int(e.Y)}
+            	pw.w.Send(paint.Event{}) // Сигнал, щоб перемалювати фігуру
+			}
 		}
 
 	case paint.Event:
@@ -135,11 +142,14 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 func (pw *Visualizer) drawDefaultUI() {
 	pw.w.Fill(pw.sz.Bounds(), color.White, draw.Src) // Фон.
 
+	// Координати центру фігури і колір
+	x := pw.centerCoords.X
+	y := pw.centerCoords.Y
 	c := color.RGBA{255, 255, 0, 1}
 
 	// Малювання хрестика
-	pw.w.Fill(image.Rect(225, 325, 575, 475), c, draw.Src)
-    pw.w.Fill(image.Rect(325, 225, 475, 575), c, draw.Src)
+	pw.w.Fill(image.Rect(x - 175, y - 75, x + 175, y + 75), c, draw.Src)
+    pw.w.Fill(image.Rect(x - 75, y - 175, x + 75, y + 175), c, draw.Src)
 
 	// // Малювання білої рамки.
 	// for _, br := range imageutil.Border(pw.sz.Bounds(), 10) {
