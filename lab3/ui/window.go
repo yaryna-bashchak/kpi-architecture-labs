@@ -48,6 +48,8 @@ func (pw *Visualizer) run(s screen.Screen) {
 
 	w, err := s.NewWindow(&screen.NewWindowOptions{
 		Title: pw.Title,
+		Width: 800,		// розміри вікна
+		Height: 800,
 	})
 	if err != nil {
 		log.Fatal("Failed to initialize the app window:", err)
@@ -131,12 +133,16 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 }
 
 func (pw *Visualizer) drawDefaultUI() {
-	pw.w.Fill(pw.sz.Bounds(), color.Black, draw.Src) // Фон.
+	pw.w.Fill(pw.sz.Bounds(), color.White, draw.Src) // Фон.
 
-	// TODO: Змінити колір фону та додати відображення фігури у вашому варіанті.
+	c := color.RGBA{255, 255, 0, 1}
 
-	// Малювання білої рамки.
-	for _, br := range imageutil.Border(pw.sz.Bounds(), 10) {
-		pw.w.Fill(br, color.White, draw.Src)
-	}
+	// Малювання хрестика
+	pw.w.Fill(image.Rect(225, 325, 575, 475), c, draw.Src)
+    pw.w.Fill(image.Rect(325, 225, 475, 575), c, draw.Src)
+
+	// // Малювання білої рамки.
+	// for _, br := range imageutil.Border(pw.sz.Bounds(), 10) {
+	// 	pw.w.Fill(br, color.White, draw.Src)
+	// }
 }
