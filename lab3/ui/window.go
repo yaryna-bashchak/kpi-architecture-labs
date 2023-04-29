@@ -143,13 +143,13 @@ func (pw *Visualizer) drawDefaultUI() {
 	pw.w.Fill(pw.sz.Bounds(), color.White, draw.Src) // Фон.
 
 	// Координати центру фігури і колір
-	x := pw.centerCoords.X
-	y := pw.centerCoords.Y
-	c := color.RGBA{255, 255, 0, 1}
+	xPos := pw.centerCoords.X
+	yPos := pw.centerCoords.Y
+	color := color.RGBA{255, 255, 0, 1}
 
 	// Малювання хрестика
-	pw.w.Fill(image.Rect(x-175, y-75, x+175, y+75), c, draw.Src)
-	pw.w.Fill(image.Rect(x-75, y-175, x+75, y+175), c, draw.Src)
+	pw.w.Fill(image.Rect(xPos-175, yPos-75, xPos+175, yPos+75), color, draw.Src)
+	pw.w.Fill(image.Rect(xPos-75, yPos-175, xPos+75, yPos+175), color, draw.Src)
 
 	// // Малювання білої рамки.
 	// for _, br := range imageutil.Border(pw.sz.Bounds(), 10) {
