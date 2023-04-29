@@ -59,7 +59,7 @@ func (op *BgRect) Do(t screen.Texture) bool {
 
 type Figure struct {
 	XPOS, YPOS int
-	C      color.RGBA
+	C          color.RGBA
 }
 
 func (op *Figure) Do(t screen.Texture) bool {
@@ -70,13 +70,13 @@ func (op *Figure) Do(t screen.Texture) bool {
 
 type MoveOp struct {
 	XPOS, YPOS int
-	Figures    []Figure
+	Figures    []*Figure
 }
 
 func (op *MoveOp) Do(t screen.Texture) bool {
 	for i := range op.Figures {
-		op.Figures[i].XPOS = op.XPOS
-		op.Figures[i].YPOS = op.YPOS
+		op.Figures[i].XPOS += op.XPOS
+		op.Figures[i].YPOS += op.YPOS
 		op.Figures[i].Do(t)
 	}
 	return false

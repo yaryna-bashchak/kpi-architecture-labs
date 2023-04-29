@@ -45,15 +45,16 @@ func (pw *Visualizer) Update(t screen.Texture) {
 }
 
 func (pw *Visualizer) run(s screen.Screen) {
-	if pw.OnScreenReady != nil {
-		pw.OnScreenReady(s)
-	}
-
 	w, err := s.NewWindow(&screen.NewWindowOptions{
 		Title:  pw.Title,
 		Width:  800, // розміри вікна
 		Height: 800,
 	})
+
+	if pw.OnScreenReady != nil {
+		pw.OnScreenReady(s)
+	}
+
 	if err != nil {
 		log.Fatal("Failed to initialize the app window:", err)
 	}
