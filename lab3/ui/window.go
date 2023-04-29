@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"golang.org/x/exp/shiny/driver"
-	"golang.org/x/exp/shiny/imageutil"
+	//"golang.org/x/exp/shiny/imageutil"
 	"golang.org/x/exp/shiny/screen"
 	"golang.org/x/image/draw"
 	"golang.org/x/mobile/event/key"
@@ -27,7 +27,7 @@ type Visualizer struct {
 
 	sz  size.Event
 	pos image.Rectangle
-	
+
 	centerCoords image.Point
 }
 
@@ -36,7 +36,7 @@ func (pw *Visualizer) Main() {
 	pw.done = make(chan struct{})
 	pw.pos.Max.X = 200
 	pw.pos.Max.Y = 200
-	pw.centerCoords = image.Point{400, 400}	// початкові координати центру фігури
+	pw.centerCoords = image.Point{400, 400} // початкові координати центру фігури
 	driver.Main(pw.run)
 }
 
@@ -50,8 +50,8 @@ func (pw *Visualizer) run(s screen.Screen) {
 	}
 
 	w, err := s.NewWindow(&screen.NewWindowOptions{
-		Title: pw.Title,
-		Width: 800,		// розміри вікна
+		Title:  pw.Title,
+		Width:  800, // розміри вікна
 		Height: 800,
 	})
 	if err != nil {
@@ -123,7 +123,7 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 			// Зміна координат центру фігури при натисканні лівої кнопки
 			if e.Button == mouse.ButtonLeft && e.Direction == mouse.DirPress {
 				pw.centerCoords = image.Point{int(e.X), int(e.Y)}
-            	pw.w.Send(paint.Event{}) // Сигнал, щоб перемалювати фігуру
+				pw.w.Send(paint.Event{}) // Сигнал, щоб перемалювати фігуру
 			}
 		}
 
@@ -148,8 +148,8 @@ func (pw *Visualizer) drawDefaultUI() {
 	c := color.RGBA{255, 255, 0, 1}
 
 	// Малювання хрестика
-	pw.w.Fill(image.Rect(x - 175, y - 75, x + 175, y + 75), c, draw.Src)
-    pw.w.Fill(image.Rect(x - 75, y - 175, x + 75, y + 175), c, draw.Src)
+	pw.w.Fill(image.Rect(x-175, y-75, x+175, y+75), c, draw.Src)
+	pw.w.Fill(image.Rect(x-75, y-175, x+75, y+175), c, draw.Src)
 
 	// // Малювання білої рамки.
 	// for _, br := range imageutil.Border(pw.sz.Bounds(), 10) {

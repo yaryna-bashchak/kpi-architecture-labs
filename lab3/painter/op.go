@@ -1,9 +1,10 @@
 package painter
 
 import (
-	"image/color"
-
 	"golang.org/x/exp/shiny/screen"
+	"golang.org/x/image/draw"
+	"image"
+	"image/color"
 )
 
 // Operation змінює вхідну текстуру.
@@ -45,4 +46,24 @@ func WhiteFill(t screen.Texture) {
 // GreenFill зафарбовує тестуру у зелений колір. Може бути викоистана як Operation через OperationFunc(GreenFill).
 func GreenFill(t screen.Texture) {
 	t.Fill(t.Bounds(), color.RGBA{G: 0xff, A: 0xff}, screen.Src)
+}
+
+type BgRect struct {
+	xPos1, yPos1, xPos2, yPos2 int
+}
+
+func (op *BgRect) Do(t screen.Texture) bool {
+	t.Fill(image.Rect(op.xPos1, op.yPos1, op.xPos2, op.yPos2), color.Black, screen.Src)
+	return false
+}
+
+type Figure struct {
+	xPos, yPos int
+	color      color.RGBA
+}
+
+func (op *Figure) Do(t screen.Texture) bool {
+	t.Fill(image.Rect(op.xPos-150, op.yPos-100, op.xPos+150, op.yPos), op.color, draw.Src)
+	t.Fill(image.Rect(op.xPos-50, op.yPos, op.xPos+50, op.yPos+100), op.color, draw.Src)
+	return false
 }
