@@ -77,7 +77,7 @@ func (op *MoveOp) Do(t screen.Texture) bool {
 	for i := range op.Figures {
 		op.Figures[i].XPOS += op.XPOS
 		op.Figures[i].YPOS += op.YPOS
-		op.Figures[i].Do(t)
+
 	}
 	return false
 }
