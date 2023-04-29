@@ -1,4 +1,4 @@
-module github.com/roman-mazur/architecture-lab-3
+module github.com/yaryna-bashchak/kpi-architecture-labs/lab3
 
 go 1.20
 
