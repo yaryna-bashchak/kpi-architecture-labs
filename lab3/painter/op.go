@@ -59,12 +59,12 @@ func (op *BgRect) Do(t screen.Texture) bool {
 
 type Figure struct {
 	XPOS, YPOS int
-	color      color.RGBA
+	C      color.RGBA
 }
 
 func (op *Figure) Do(t screen.Texture) bool {
-	t.Fill(image.Rect(op.XPOS-150, op.YPOS-100, op.XPOS+150, op.YPOS), op.color, draw.Src)
-	t.Fill(image.Rect(op.XPOS-50, op.YPOS, op.XPOS+50, op.YPOS+100), op.color, draw.Src)
+	t.Fill(image.Rect(op.XPOS-150, op.YPOS-100, op.XPOS+150, op.YPOS), op.C, draw.Src)
+	t.Fill(image.Rect(op.XPOS-50, op.YPOS, op.XPOS+50, op.YPOS+100), op.C, draw.Src)
 	return false
 }
 
