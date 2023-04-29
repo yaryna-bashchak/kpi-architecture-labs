@@ -67,3 +67,21 @@ func (op *Figure) Do(t screen.Texture) bool {
 	t.Fill(image.Rect(op.xPos-50, op.yPos, op.xPos+50, op.yPos+100), op.color, draw.Src)
 	return false
 }
+
+type MoveOp struct {
+	xPos, yPos int
+	Figures    []Figure
+}
+
+func (op *MoveOp) Do(t screen.Texture) bool {
+	for i := range op.Figures {
+		op.Figures[i].xPos = op.xPos
+		op.Figures[i].yPos = op.yPos
+		op.Figures[i].Do(t)
+	}
+	return false
+}
+
+func ResetWindow(t screen.Texture) {
+	t.Fill(t.Bounds(), color.Black, draw.Src)
+}
