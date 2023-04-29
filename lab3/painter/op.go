@@ -49,34 +49,34 @@ func GreenFill(t screen.Texture) {
 }
 
 type BgRect struct {
-	xPos1, yPos1, xPos2, yPos2 int
+	XPOS1, YPOS1, XPOS2, YPOS2 int
 }
 
 func (op *BgRect) Do(t screen.Texture) bool {
-	t.Fill(image.Rect(op.xPos1, op.yPos1, op.xPos2, op.yPos2), color.Black, screen.Src)
+	t.Fill(image.Rect(op.XPOS1, op.YPOS1, op.XPOS2, op.YPOS2), color.Black, screen.Src)
 	return false
 }
 
 type Figure struct {
-	xPos, yPos int
+	XPOS, YPOS int
 	color      color.RGBA
 }
 
 func (op *Figure) Do(t screen.Texture) bool {
-	t.Fill(image.Rect(op.xPos-150, op.yPos-100, op.xPos+150, op.yPos), op.color, draw.Src)
-	t.Fill(image.Rect(op.xPos-50, op.yPos, op.xPos+50, op.yPos+100), op.color, draw.Src)
+	t.Fill(image.Rect(op.XPOS-150, op.YPOS-100, op.XPOS+150, op.YPOS), op.color, draw.Src)
+	t.Fill(image.Rect(op.XPOS-50, op.YPOS, op.XPOS+50, op.YPOS+100), op.color, draw.Src)
 	return false
 }
 
 type MoveOp struct {
-	xPos, yPos int
+	XPOS, YPOS int
 	Figures    []Figure
 }
 
 func (op *MoveOp) Do(t screen.Texture) bool {
 	for i := range op.Figures {
-		op.Figures[i].xPos = op.xPos
-		op.Figures[i].yPos = op.yPos
+		op.Figures[i].XPOS = op.XPOS
+		op.Figures[i].YPOS = op.YPOS
 		op.Figures[i].Do(t)
 	}
 	return false
