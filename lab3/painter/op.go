@@ -68,12 +68,12 @@ func (op *Figure) Do(t screen.Texture) bool {
 	return false
 }
 
-type Move struct {
+type MoveOp struct {
 	xPos, yPos int
 	Figures    []Figure
 }
 
-func (op *Move) Do(t screen.Texture) bool {
+func (op *MoveOp) Do(t screen.Texture) bool {
 	for i := range op.Figures {
 		op.Figures[i].xPos = op.xPos
 		op.Figures[i].yPos = op.yPos
