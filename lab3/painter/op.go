@@ -70,7 +70,7 @@ func (op *Figure) Do(t screen.Texture) bool {
 
 type MoveOp struct {
 	XPOS, YPOS int
-	Figures    []Figure
+	Figures    []*Figure
 }
 
 func (op *MoveOp) Do(t screen.Texture) bool {

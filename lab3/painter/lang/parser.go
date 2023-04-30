@@ -15,12 +15,13 @@ import (
 type Parser struct {
 	lastBgColor painter.Operation
 	lastBgRect  *painter.BgRect
-	figures     []painter.Figure
+	figures     []*painter.Figure
 	moveOps     []painter.Operation
 	updateOp    painter.Operation
 }
 
 func (p *Parser) Parse(in io.Reader) ([]painter.Operation, error) {
+	p.createWindow()
 	scanner := bufio.NewScanner(in)
 	scanner.Split(bufio.ScanLines)
 	for scanner.Scan() {
@@ -43,11 +44,13 @@ func (p *Parser) finalizeResult() []painter.Operation {
 	}
 	if len(p.moveOps) != 0 {
 		res = append(res, p.moveOps...)
+		p.moveOps = nil
 	}
+
 	if len(p.figures) != 0 {
 		println(len(p.figures))
 		for _, figure := range p.figures {
-			res = append(res, &figure)
+			res = append(res, figure)
 		}
 	}
 
@@ -90,9 +93,9 @@ func (p *Parser) parse(commandLine string) error {
 	case "bgrect":
 		p.lastBgRect = &painter.BgRect{XPOS1: intArgs[0], YPOS1: intArgs[1], XPOS2: intArgs[2], YPOS2: intArgs[3]}
 	case "figure":
-		col := color.RGBA{R: 219, G: 208, B: 48, A: 1}
+		col := color.RGBA{R: 255, G: 255, B: 0, A: 1}
 		figure := painter.Figure{XPOS: intArgs[0], YPOS: intArgs[1], C: col}
-		p.figures = append(p.figures, figure)
+		p.figures = append(p.figures, &figure)
 	case "move":
 		moveOp := painter.MoveOp{XPOS: intArgs[0], YPOS: intArgs[1], Figures: p.figures}
 		p.moveOps = append(p.moveOps, &moveOp)
@@ -106,4 +109,13 @@ func (p *Parser) parse(commandLine string) error {
 		return fmt.Errorf("could not parse command %v", commandLine)
 	}
 	return nil
+}
+
+func (p *Parser) createWindow() {
+	if p.lastBgColor == nil {
+		p.lastBgColor = painter.OperationFunc(painter.ResetWindow)
+	}
+	if p.updateOp != nil {
+		p.updateOp = nil
+	}
 }
