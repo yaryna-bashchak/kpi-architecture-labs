@@ -1,10 +1,11 @@
 package painter
 
 import (
-	"golang.org/x/exp/shiny/screen"
-	"golang.org/x/image/draw"
 	"image"
 	"image/color"
+
+	"golang.org/x/exp/shiny/screen"
+	"golang.org/x/image/draw"
 )
 
 // Operation змінює вхідну текстуру.
@@ -63,8 +64,8 @@ type Figure struct {
 }
 
 func (op *Figure) Do(t screen.Texture) bool {
-	t.Fill(image.Rect(op.XPOS-150, op.YPOS-100, op.XPOS+150, op.YPOS), op.C, draw.Src)
-	t.Fill(image.Rect(op.XPOS-50, op.YPOS, op.XPOS+50, op.YPOS+100), op.C, draw.Src)
+	t.Fill(image.Rect(op.XPOS-75, op.YPOS-25, op.XPOS+75, op.YPOS+25), op.C, draw.Src)
+	t.Fill(image.Rect(op.XPOS-25, op.YPOS-75, op.XPOS+25, op.YPOS+75), op.C, draw.Src)
 	return false
 }
 
