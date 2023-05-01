@@ -1,10 +1,5 @@
-default: out/example
-
-clean:
-	rm -rf out
-
-test: *.go
-	go test ./...
+test:
+	go test ./tests/...
 
 out/example: cmd/painter/main.go
 	mkdir -p out
