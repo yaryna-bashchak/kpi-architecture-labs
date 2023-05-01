@@ -54,7 +54,7 @@ type BgRect struct {
 }
 
 func (op *BgRect) Do(t screen.Texture) bool {
-	t.Fill(image.Rect(op.XPOS1, op.YPOS1, op.XPOS2, op.YPOS2), color.Black, screen.Src)
+	t.Fill(image.Rect(op.XPOS1, op.YPOS1, op.XPOS2, op.YPOS2), color.White, screen.Src)
 	return false
 }
 
@@ -84,5 +84,5 @@ func (op *MoveOp) Do(t screen.Texture) bool {
 }
 
 func ResetWindow(t screen.Texture) {
-	t.Fill(t.Bounds(), color.Black, draw.Src)
+	t.Fill(t.Bounds(), color.White, draw.Src)
 }
