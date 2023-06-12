@@ -21,7 +21,11 @@ jobs:
         run: make -C ./lab3 out/example
 
       - name: Test Parser
-        run: go test ./lab3/painter/lang
+        run: |
+          cd lab3
+          go test ./painter/lang
         
       - name: Test Loop
-        run: go test ./lab3/painter
+        run: |
+          cd lab3
+          go test ./painter
