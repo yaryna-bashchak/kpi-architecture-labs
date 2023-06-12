@@ -1,9 +1,8 @@
-package tests
+package lang
 
 import (
 	"github.com/stretchr/testify/assert"
 	"github.com/yaryna-bashchak/kpi-architecture-labs/lab3/painter"
-	"github.com/yaryna-bashchak/kpi-architecture-labs/lab3/painter/lang"
 	"image/color"
 	"reflect"
 	"strings"
@@ -45,7 +44,7 @@ func Test_parse_struct(t *testing.T) {
 		// Run subtest with the name of the command string
 		t.Run(tt.command, func(t *testing.T) {
 			// Create a new parser instance
-			parser := &lang.Parser{}
+			parser := &Parser{}
 
 			// Parse the command string and get the parsed operations and error
 			op, err := parser.Parse(strings.NewReader(tt.command))
@@ -89,7 +88,7 @@ func Test_parse_func(t *testing.T) {
 	}
 
 	// Create a new parser instance
-	parser := &lang.Parser{}
+	parser := &Parser{}
 
 	// Iterate over the test data
 	for _, tt := range tests {

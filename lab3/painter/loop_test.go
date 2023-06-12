@@ -1,9 +1,8 @@
-package tests
+package painter
 
 import (
   "github.com/stretchr/testify/assert"
   "github.com/stretchr/testify/mock"
-  "github.com/yaryna-bashchak/kpi-architecture-labs/lab3/painter"
   "golang.org/x/exp/shiny/screen"
   "golang.org/x/image/draw"
   "image"
@@ -75,7 +74,7 @@ screenMock.On("NewTexture", texture).Return(textureMock, nil)
 receiverMock.On("Update", textureMock).Return()
 
 // Create a painter loop and start it with the screenMock
-loop := painter.Loop{
+loop := Loop{
   Receiver: receiverMock,
 }
 loop.Start(screenMock)
