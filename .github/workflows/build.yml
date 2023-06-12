@@ -20,5 +20,8 @@ jobs:
       - name: Build
         run: make -C ./lab3 out/example
 
-      - name: Test
-        run: make -C ./lab3 test
+      - name: Test Parser
+        run: make -C ./lab3/painter/lang test
+        
+      - name: Test Loop
+        run: make -C ./lab3/painter test
